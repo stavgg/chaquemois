@@ -16,7 +16,7 @@ for (variation_id,) in variations:
     # תרחישי מלאי – מותאם לבוטיק (נמוך, גבול, גבוה - עד 15)
     stock_scenario = random.choices(
         ['low', 'borderline', 'high'],
-        weights=[0.4, 0.2, 0.4],  # יותר חוסרים
+        weights=[0.2, 0.2, 0.6],  # יותר חוסרים
         k=1
     )[0]
 
