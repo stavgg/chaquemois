@@ -1,0 +1,31 @@
+import sqlite3
+
+class ProductVariation:
+    def __init__(self, id, product_id, color, size, stock, reorder_level):
+        self.id = id
+        self.product_id = product_id
+        self.color = color
+        self.size = size
+        self.stock = stock
+        self.reorder_level = reorder_level
+
+    def is_below_reorder(self):
+        return self.stock < self.reorder_level
+
+    @staticmethod
+    def get_all():
+        conn = sqlite3.connect("chaquemois_variations.db")
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, product_id, color, size, stock, reorder_level FROM ProductVariation")
+        rows = cursor.fetchall()
+        conn.close()
+        return [ProductVariation(*row) for row in rows]
+
+    @staticmethod
+    def get_by_product_id(product_id):
+        conn = sqlite3.connect("chaquemois_variations.db")
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, product_id, color, size, stock, reorder_level FROM ProductVariation WHERE product_id = ?", (product_id,))
+        rows = cursor.fetchall()
+        conn.close()
+        return [ProductVariation(*row) for row in rows]
